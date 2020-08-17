@@ -1,6 +1,6 @@
 # expensions_mate
 
-A new Flutter project.
+A new Flutter projec - basic application logging expensions
 
 ## Getting Started
 
