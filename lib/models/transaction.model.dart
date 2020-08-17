@@ -14,4 +14,12 @@ class Transaction {
     this.date = date;
     Transaction.id += 1;
   }
+
+  int get transactionId {
+    return this._id;
+  }
+
+  // Equality operator
+  @override
+  bool operator ==(t) => this._id == t.transactionId;
 }
