@@ -13,10 +13,15 @@ class TransactionListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: transactions.map((tx) {
-        return TransactionWidget(tx);
-      }).toList(),
+    return Container(
+      height: 350,
+      child: SingleChildScrollView(
+        child: Column(
+          children: transactions.map((tx) {
+            return TransactionWidget(tx);
+          }).toList(),
+        ),
+      ),
     );
   }
 }
