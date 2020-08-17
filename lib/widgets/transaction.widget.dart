@@ -8,8 +8,7 @@ class TransactionWidget extends StatelessWidget {
   Transaction _tx;
 
   TransactionWidget(Transaction t) {
-    this._tx =
-        Transaction(id: t.id, amount: t.amount, title: t.title, date: t.date);
+    this._tx = Transaction(amount: t.amount, title: t.title, date: t.date);
   }
 
   @override

@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'models/transaction.model.dart';
 
 // Widgets
+import 'widgets/new_transaction.widget.dart';
 import 'widgets/transaction.widget.dart';
+import 'widgets/transaction_list.widget.dart';
+import 'widgets/user_transactions.widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -12,27 +15,15 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: 'Flutter App',
+      title: 'Expense Mate App',
       home: MyHomePage(),
     );
   }
 }
 
 class MyHomePage extends StatelessWidget {
-  final List<Transaction> transactions = [
-    Transaction(
-      id: 't1',
-      title: 'Shoes',
-      amount: 99.12,
-      date: DateTime.now(),
-    ),
-    Transaction(
-      id: 't2',
-      title: 'Dress',
-      amount: 12.15,
-      date: DateTime.now(),
-    )
-  ];
+  final titleController = TextEditingController();
+  final amountController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +32,7 @@ class MyHomePage extends StatelessWidget {
         title: Text('Flutter App'),
       ),
       body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        mainAxisAlignment: MainAxisAlignment.start,
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Container(
@@ -52,12 +43,7 @@ class MyHomePage extends StatelessWidget {
               elevation: 5,
             ),
           ),
-          Column(
-            children: transactions.map((tx) {
-              print("qweqweqw");
-              return TransactionWidget(tx);
-            }).toList(),
-          )
+          UserTransactionsWidget()
         ],
       ),
     );
