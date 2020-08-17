@@ -2,6 +2,12 @@
 
 A new Flutter projec - basic application logging expensions
 
+## Screenshots
+
+# Version 1.0
+
+![Alt text](/screenshots/screenshot_version_1.png "Screenshot of version 1.0")
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
