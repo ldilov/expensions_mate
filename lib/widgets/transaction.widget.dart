@@ -23,7 +23,7 @@ class TransactionWidget extends StatelessWidget {
                 border: Border.all(
                     color: Colors.purple, width: 2, style: BorderStyle.solid)),
             child: Text(
-              "\$${this._tx.amount.toString()}",
+              "\$${this._tx.amount.toStringAsFixed(2)}",
               style: TextStyle(
                 fontWeight: FontWeight.bold,
                 fontSize: 20,

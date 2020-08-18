@@ -26,7 +26,7 @@ class MyHomePage extends StatelessWidget {
   final amountController = TextEditingController();
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context) { 
     return Scaffold(
       appBar: AppBar(
         title: Text('Daily Expenses'),
