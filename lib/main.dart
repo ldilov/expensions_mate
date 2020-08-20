@@ -5,9 +5,7 @@ import 'models/transaction.model.dart';
 
 // Widgets
 import 'widgets/new_transaction.widget.dart';
-import 'widgets/transaction.widget.dart';
 import 'widgets/transaction_list.widget.dart';
-import 'widgets/user_transactions.widget.dart';
 
 void main() => runApp(MyApp());
 
@@ -21,15 +19,42 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class MyHomePage extends StatelessWidget {
-  final titleController = TextEditingController();
-  final amountController = TextEditingController();
+class MyHomePage extends StatefulWidget {
+  @override
+  _MyHomePageState createState() => _MyHomePageState();
+}
+
+class _MyHomePageState extends State<MyHomePage> {
+  final List<Transaction> _userTransactions = [];
+
+  void _addNewTransaction({String title, double amount}) {
+    final newTx =
+        Transaction(amount: amount, title: title, date: DateTime.now());
+
+    setState(() {
+      _userTransactions.add(newTx);
+    });
+  }
+
+  void _showAddTransactionModal(BuildContext ctx) {
+    showModalBottomSheet(
+        context: ctx,
+        builder: (_) {
+          return NewTransactionWidget(_addNewTransaction); 
+        });
+  }
 
   @override
-  Widget build(BuildContext context) { 
+  Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         title: Text('Daily Expenses'),
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () => _showAddTransactionModal(context),
+          ),
+        ],
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -44,9 +69,17 @@ class MyHomePage extends StatelessWidget {
                 elevation: 5,
               ),
             ),
-            UserTransactionsWidget()
+            TransactionListWidget(_userTransactions),
           ],
         ),
+      ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
+      floatingActionButton: FloatingActionButton(
+        child: IconButton(
+          icon: Icon(Icons.add),
+          color: Colors.white,
+        ),
+        onPressed: () => _showAddTransactionModal(context),
       ),
     );
   }
