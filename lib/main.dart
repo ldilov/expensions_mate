@@ -14,6 +14,25 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Expense Mate App',
+      theme: ThemeData(
+        primarySwatch: Colors.deepPurple,
+        accentColor: Colors.amber,
+        fontFamily: 'Quicksand',
+        textTheme: ThemeData.light().textTheme.copyWith(
+              headline6: TextStyle(
+                  fontFamily: 'OpenSans',
+                  fontSize: 17,
+                  fontWeight: FontWeight.bold),
+            ),
+        appBarTheme: AppBarTheme(
+          textTheme: ThemeData.light().textTheme.copyWith(
+                headline6: TextStyle(
+                    fontFamily: 'OpenSans',
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold),
+              ),
+        ),
+      ),
       home: MyHomePage(),
     );
   }
@@ -40,7 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
     showModalBottomSheet(
         context: ctx,
         builder: (_) {
-          return NewTransactionWidget(_addNewTransaction); 
+          return NewTransactionWidget(_addNewTransaction);
         });
   }
 
@@ -48,7 +67,12 @@ class _MyHomePageState extends State<MyHomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Daily Expenses'),
+        title: Text(
+          'Daily Expenses',
+          style: TextStyle(
+            fontFamily: 'Open Sans',
+          ),
+        ),
         actions: <Widget>[
           IconButton(
             icon: Icon(Icons.add),
@@ -78,6 +102,7 @@ class _MyHomePageState extends State<MyHomePage> {
         child: IconButton(
           icon: Icon(Icons.add),
           color: Colors.white,
+          hoverColor: Colors.white,
         ),
         onPressed: () => _showAddTransactionModal(context),
       ),
