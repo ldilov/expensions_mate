@@ -1,5 +1,6 @@
 import 'dart:collection';
 
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
 // Models import
@@ -18,7 +19,7 @@ class TransactionListWidget extends StatefulWidget {
 }
 
 class _TransactionListWidgetState extends State<TransactionListWidget> {
-  void removeTransaction(int id) {
+  void _removeTransaction(int id) {
     for (int i = 0; i < widget.transactions.length; i++) {
       if (id == widget.transactions[i].transactionId) {
         setState(() {
@@ -33,13 +34,30 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
   Widget build(BuildContext context) {
     return Container(
       height: 350,
-      child: ListView.builder(
-        itemBuilder: (context, index) =>
-            TransactionWidget(widget.transactions[index], {
-          "removeTransaction": removeTransaction,
-        }),
-        itemCount: widget.transactions.length,
-      ),
+      child: widget.transactions.isEmpty
+          ? Column(
+              children: <Widget>[
+                Text(
+                  'No transactions added yet!',
+                  style: Theme.of(context).textTheme.headline6,
+                ),
+                SizedBox(
+                  height: 30,
+                ),
+                Container(
+                  height: 200,
+                  child: Image.asset("assets/images/waiting.png",
+                      fit: BoxFit.cover),
+                )
+              ],
+            )
+          : ListView.builder(
+              itemBuilder: (context, index) =>
+                  TransactionWidget(widget.transactions[index], {
+                "removeTransaction": _removeTransaction,
+              }),
+              itemCount: widget.transactions.length,
+            ),
     );
   }
 }
