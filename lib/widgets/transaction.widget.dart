@@ -19,37 +19,73 @@ class TransactionWidget extends StatelessWidget {
       child: Row(
         children: <Widget>[
           Container(
-              margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
-              decoration: BoxDecoration(
-                border: Border.all(
-                  color: Theme.of(context).primaryColor,
-                  width: 2,
-                  style: BorderStyle.solid,
-                ),
+            margin: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            padding: EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+            decoration: BoxDecoration(
+              border: Border.all(
+                color: Theme.of(context).primaryColor,
+                width: 2,
+                style: BorderStyle.solid,
               ),
-              child: Text(
-                "\$${this._tx.amount.toStringAsFixed(2)}",
-                style: TextStyle(
-                  fontWeight: FontWeight.bold,
-                  fontSize: 20,
-                  color: Theme.of(context).primaryColor,
-                ),
-              )),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                this._tx.title,
-                style: Theme.of(context).textTheme.headline6,
+            ),
+            child: Container(
+              width: 85,
+              child: Row(
+                children: [
+                  Flexible(
+                    flex: 1,
+                    fit: FlexFit.tight,
+                    child: Text(
+                      "\$",
+                      overflow: TextOverflow.ellipsis,
+                      textAlign: TextAlign.center,
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25,
+                        color: Theme.of(context).primaryColor,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Flexible(
+                    flex: 10,
+                    fit: FlexFit.tight,
+                    child: FittedBox(
+                      child: Text(
+                        "${this._tx.amount.toStringAsFixed(2)}",
+                        textAlign: TextAlign.center,
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 1,
+                          color: Theme.of(context).primaryColor,
+                        ),
+                      ),
+                    ),
+                  )
+                ],
               ),
-              Text(
-                DateFormat().format(this._tx.date),
-                style: TextStyle(
-                  color: Colors.grey,
+            ),
+          ),
+          Container(
+            width: 180,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  this._tx.title,
+                  overflow: TextOverflow.ellipsis,
+                  style: Theme.of(context).textTheme.headline6,
                 ),
-              )
-            ],
+                Text(
+                  DateFormat().format(this._tx.date),
+                  style: TextStyle(
+                    color: Colors.grey,
+                  ),
+                )
+              ],
+            ),
           ),
           Column(
             crossAxisAlignment: CrossAxisAlignment.end,

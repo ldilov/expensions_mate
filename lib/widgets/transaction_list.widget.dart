@@ -33,7 +33,7 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 350,
+      height: 380,
       child: widget.transactions.isEmpty
           ? Column(
               children: <Widget>[
