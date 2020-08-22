@@ -20,7 +20,6 @@ class Transaction {
     this._id = map['transaction_id'];
     this.title = map['title'];
     this.amount = map['amount'];
-    print(map['date']);
     this.date = map['date'];
   }
 

@@ -1,7 +1,9 @@
 import 'dart:collection';
-
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
+
+// Database connection
+import '../database/database_helper.dart';
 
 // Models import
 import '../models/transaction.model.dart';
@@ -11,8 +13,9 @@ import '../widgets/transaction.widget.dart';
 
 class TransactionListWidget extends StatefulWidget {
   final List<Transaction> transactions;
+  final DatabaseHelper db;
 
-  TransactionListWidget(this.transactions);
+  TransactionListWidget(this.transactions, this.db);
 
   @override
   _TransactionListWidgetState createState() => _TransactionListWidgetState();
@@ -22,6 +25,7 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
   void _removeTransaction(int id) {
     for (int i = 0; i < widget.transactions.length; i++) {
       if (id == widget.transactions[i].transactionId) {
+        widget.db.delete(id);
         setState(() {
           widget.transactions.removeAt(i);
         });

@@ -85,6 +85,13 @@ class DatabaseHelper {
 
     return transactions;
   }
-  // TODO: delete(int id)
+
+  Future<int> delete(int tId) async {
+    Database db = await database;
+    print("called");
+    return await db
+        .delete(tableTransactions, where: '$columnId = ?', whereArgs: [tId]);
+  }
+
   // TODO: update(Word word)
 }

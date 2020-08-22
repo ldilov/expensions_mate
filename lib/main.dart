@@ -85,6 +85,11 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  Future<List<Transaction>> _getAllTransactions() async {
+    List<Transaction> result = (await db.queryAllTransactions()).toList();
+    return result != null && result.isNotEmpty ? result : [];
+  }
+
   void _showAddTransactionModal(BuildContext ctx) {
     showModalBottomSheet(
         context: ctx,
@@ -115,8 +120,27 @@ class _MyHomePageState extends State<MyHomePage> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: <Widget>[
-            Chart(_recentTransactions),
-            TransactionListWidget(_userTransactions),
+            FutureBuilder<List<Transaction>>(
+              future: _getAllTransactions(),
+              builder: (BuildContext context,
+                  AsyncSnapshot<List<Transaction>> snapshot) {
+                if (snapshot.hasData) {
+                  this._userTransactions = snapshot.data;
+                  return Column(
+                    children: [
+                      Chart(_userTransactions),
+                      TransactionListWidget(_recentTransactions, db),
+                    ],
+                  );
+                } else {
+                  return Center(
+                    child: CircularProgressIndicator(
+                      backgroundColor: Theme.of(context).primaryColor,
+                    ),
+                  );
+                }
+              },
+            ),
           ],
         ),
       ),
