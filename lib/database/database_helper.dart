@@ -53,6 +53,7 @@ class DatabaseHelper {
   // Database helper methods:
 
   Future<int> insert(model.Transaction t) async {
+    print("Adding new t");
     Database db = await database;
     int id = await db.insert(tableTransactions, t.toMap());
     return id;

@@ -51,13 +51,17 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Transaction> _userTransactions = [];
   final DatabaseHelper db = DatabaseHelper.instance;
 
-  void _addNewTransaction({String title, double amount}) {
+  void _addNewTransaction({String title, double amount, DateTime date}) {
     final newTx = Transaction(
-        amount: amount,
-        title: title,
-        date: DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now()));
+      amount: amount,
+      title: title,
+      date: DateFormat("yyyy-MM-dd hh:mm:ss")
+          .format(date != null ? date : DateTime.now()),
+    );
 
-    db.insert(newTx);
+    (() async {
+      await db.insert(newTx);
+    })();
 
     setState(() {
       _userTransactions.add(newTx);

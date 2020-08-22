@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 class NewTransactionWidget extends StatefulWidget {
   final Function _addTransaction;
@@ -11,20 +12,42 @@ class NewTransactionWidget extends StatefulWidget {
 
 class _NewTransactionWidgetState extends State<NewTransactionWidget> {
   final titleController = TextEditingController();
-
   final amountController = TextEditingController();
+
+  DateTime _selectedDate;
 
   void submitData() {
     final enteredTitle = titleController.text;
     final enteredAmount = double.parse(amountController.text);
 
-    if (enteredTitle.isEmpty || enteredAmount <= 0) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
-    widget._addTransaction(title: enteredTitle, amount: enteredAmount);
+    widget._addTransaction(
+      title: enteredTitle,
+      amount: enteredAmount,
+      date: _selectedDate,
+    );
 
     // Pops the top of screen widget by passing the context which we have from State class
     Navigator.of(context).pop();
+  }
+
+  void _presentDatePicker() {
+    showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2019),
+      lastDate: DateTime.now(),
+    ).then((pickedDate) {
+      if (pickedDate == null) {
+        return this;
+      }
+
+      setState(() {
+        this._selectedDate = pickedDate;
+      });
+    });
   }
 
   @override
@@ -51,7 +74,12 @@ class _NewTransactionWidgetState extends State<NewTransactionWidget> {
               height: 70,
               child: Row(
                 children: <Widget>[
-                  Text('No date chosen'),
+                  Text(
+                    _selectedDate == null
+                        ? 'No date chosen'
+                        : DateFormat("yyyy-MM-dd hh:mm:ss")
+                            .format(_selectedDate),
+                  ),
                   FlatButton(
                     textColor: Theme.of(context).primaryColor,
                     child: Text(
@@ -60,7 +88,7 @@ class _NewTransactionWidgetState extends State<NewTransactionWidget> {
                         fontWeight: FontWeight.bold,
                       ),
                     ),
-                    onPressed: () {},
+                    onPressed: _presentDatePicker,
                   ),
                 ],
               ),
