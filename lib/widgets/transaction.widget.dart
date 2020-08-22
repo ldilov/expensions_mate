@@ -79,7 +79,7 @@ class TransactionWidget extends StatelessWidget {
                   style: Theme.of(context).textTheme.headline6,
                 ),
                 Text(
-                  DateFormat().format(this._tx.date),
+                  this._tx.date,
                   style: TextStyle(
                     color: Colors.grey,
                   ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 
 // Models
+import 'database/database_helper.dart';
 import 'models/transaction.model.dart';
 
 // Widgets
@@ -25,6 +27,7 @@ class MyApp extends StatelessWidget {
                   fontSize: 17,
                   fontWeight: FontWeight.bold),
             ),
+        buttonColor: Colors.white,
         appBarTheme: AppBarTheme(
           textTheme: ThemeData.light().textTheme.copyWith(
                 headline6: TextStyle(
@@ -45,11 +48,16 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final List<Transaction> _userTransactions = [];
+  List<Transaction> _userTransactions = [];
+  final DatabaseHelper db = DatabaseHelper.instance;
 
   void _addNewTransaction({String title, double amount}) {
-    final newTx =
-        Transaction(amount: amount, title: title, date: DateTime.now());
+    final newTx = Transaction(
+        amount: amount,
+        title: title,
+        date: DateFormat("yyyy-MM-dd hh:mm:ss").format(DateTime.now()));
+
+    db.insert(newTx);
 
     setState(() {
       _userTransactions.add(newTx);
@@ -59,15 +67,22 @@ class _MyHomePageState extends State<MyHomePage> {
   List<Transaction> get _recentTransactions {
     return _userTransactions
         .where(
-          (t) => t.date.isAfter(
-            DateTime.now().subtract(
-              Duration(
-                days: 7,
+          (t) => DateFormat("yyyy-MM-dd hh:mm:ss").parse(t.date).isAfter(
+                DateTime.now().subtract(
+                  Duration(
+                    days: 7,
+                  ),
+                ),
               ),
-            ),
-          ),
         )
         .toList();
+  }
+
+  void _refreshTransactions() async {
+    final List<Transaction> tempList = await db.queryAllTransactions();
+    setState(() {
+      this._userTransactions = tempList;
+    });
   }
 
   void _showAddTransactionModal(BuildContext ctx) {
@@ -90,8 +105,8 @@ class _MyHomePageState extends State<MyHomePage> {
         ),
         actions: <Widget>[
           IconButton(
-            icon: Icon(Icons.add),
-            onPressed: () => _showAddTransactionModal(context),
+            icon: Icon(Icons.refresh),
+            onPressed: () => _refreshTransactions(),
           ),
         ],
       ),
