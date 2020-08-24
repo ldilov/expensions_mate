@@ -1,4 +1,4 @@
-import 'package:expensions_mate/widgets/char_bar.dart';
+import './char_bar.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
