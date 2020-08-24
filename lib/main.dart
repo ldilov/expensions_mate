@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:intl/intl.dart';
 
 // Models
@@ -10,7 +11,14 @@ import 'widgets/new_transaction.widget.dart';
 import 'widgets/transaction_list.widget.dart';
 import 'widgets/chart.widget.dart';
 
-void main() => runApp(MyApp());
+void main() {
+  WidgetsFlutterBinding.ensureInitialized();
+  SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitDown,
+  ]);
+  runApp(MyApp());
+}
 
 class MyApp extends StatelessWidget {
   @override
@@ -79,6 +87,8 @@ class _MyHomePageState extends State<MyHomePage> {
                 ),
               ),
         )
+        .toList()
+        .reversed
         .toList();
   }
 
@@ -104,21 +114,22 @@ class _MyHomePageState extends State<MyHomePage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Daily Expenses',
-          style: TextStyle(
-            fontFamily: 'Open Sans',
-          ),
+    final appBar = AppBar(
+      title: Text(
+        'Daily Expenses',
+        style: TextStyle(
+          fontFamily: 'Open Sans',
         ),
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.refresh),
-            onPressed: () => _refreshTransactions(),
-          ),
-        ],
       ),
+      actions: <Widget>[
+        IconButton(
+          icon: Icon(Icons.refresh),
+          onPressed: () => _refreshTransactions(),
+        ),
+      ],
+    );
+    return Scaffold(
+      appBar: appBar,
       body: SingleChildScrollView(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
@@ -132,8 +143,20 @@ class _MyHomePageState extends State<MyHomePage> {
                   this._userTransactions = snapshot.data;
                   return Column(
                     children: [
-                      Chart(_userTransactions),
-                      TransactionListWidget(_recentTransactions, db),
+                      Container(
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.3,
+                        child: Chart(_userTransactions),
+                      ),
+                      Container(
+                        height: (MediaQuery.of(context).size.height -
+                                appBar.preferredSize.height -
+                                MediaQuery.of(context).padding.top) *
+                            0.6,
+                        child: TransactionListWidget(_recentTransactions, db),
+                      ),
                     ],
                   );
                 } else {

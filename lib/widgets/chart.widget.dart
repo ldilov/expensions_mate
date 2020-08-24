@@ -16,7 +16,7 @@ class Chart extends StatelessWidget {
 
       var totalAmount = 0.0;
 
-      for (var i = 0; i < recentTransactions.length; i++) {
+      for (var i = recentTransactions.length - 1; i >= 0; i--) {
         var date =
             DateFormat("yyyy-MM-dd hh:mm:ss").parse(recentTransactions[i].date);
         if (date.day == weekDay.day &&

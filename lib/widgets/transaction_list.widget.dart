@@ -36,32 +36,29 @@ class _TransactionListWidgetState extends State<TransactionListWidget> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 450,
-      child: widget.transactions.isEmpty
-          ? Column(
-              children: <Widget>[
-                Text(
-                  'No transactions added yet!',
-                  style: Theme.of(context).textTheme.headline6,
-                ),
-                SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  height: 200,
-                  child: Image.asset("assets/images/waiting.png",
-                      fit: BoxFit.cover),
-                )
-              ],
-            )
-          : ListView.builder(
-              itemBuilder: (context, index) =>
-                  TransactionWidget(widget.transactions[index], {
-                "removeTransaction": _removeTransaction,
-              }),
-              itemCount: widget.transactions.length,
-            ),
-    );
+    return widget.transactions.isEmpty
+        ? Column(
+            children: <Widget>[
+              Text(
+                'No transactions added yet!',
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              SizedBox(
+                height: 30,
+              ),
+              Container(
+                height: 200,
+                child:
+                    Image.asset("assets/images/waiting.png", fit: BoxFit.cover),
+              )
+            ],
+          )
+        : ListView.builder(
+            itemBuilder: (context, index) =>
+                TransactionWidget(widget.transactions[index], {
+              "removeTransaction": _removeTransaction,
+            }),
+            itemCount: widget.transactions.length,
+          );
   }
 }
