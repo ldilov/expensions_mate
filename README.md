@@ -1,4 +1,4 @@
-# expensions_mate
+# Last Week Daily Expenses
 
 A new Flutter projec - basic application logging expensions
 
@@ -6,8 +6,9 @@ A new Flutter projec - basic application logging expensions
 
 # Version 1.0
 
-![Alt text](/screenshots/screenshot_version_1.png "Screenshot of version 1.0")
-
+![Alt text](/screenshots/screenshot_main.png "Screenshot of version 1.0")
+![Alt text](/screenshots/screenshot_date.png "Screenshot of version datepicker 1.0")
+![Alt text](/screenshots/screenshot_full.png "Screenshot of version full 1.0")
 ## Getting Started
 
 This project Flutter application.

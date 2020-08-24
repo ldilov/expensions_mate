@@ -1,5 +1,5 @@
-name: expensions_mate
-description: A new Flutter project.
+name: last_daily_expenses
+description: Flutter based daily expenses app.
 
 # The following line prevents the package from being accidentally published to
 # pub.dev using `pub publish`. This is preferred for private packages.
