@@ -6,9 +6,12 @@ A new Flutter projec - basic application logging expensions
 
 # Version 1.0
 
-![Alt text](/screenshots/screen_main.png "Screenshot of version 1.0")
-![Alt text](/screenshots/screen_date.png "Screenshot of version datepicker 1.0")
-![Alt text](/screenshots/screen_full.png "Screenshot of version full 1.0")
+![Alt text](/screenshots/screen_main.png "Screenshot of version 1.0")  
+
+![Alt text](/screenshots/screen_date.png "Screenshot of version datepicker 1.0")  
+
+![Alt text](/screenshots/screen_full.png "Screenshot of version full 1.0")  
+
 ## Getting Started
 
 This project Flutter application.
