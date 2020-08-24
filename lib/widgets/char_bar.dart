@@ -20,6 +20,7 @@ class ChartBar extends StatelessWidget {
                 child: Text(
                   '\$${spendingAmount.toStringAsFixed(2)}',
                   overflow: TextOverflow.ellipsis,
+                  style: TextStyle(fontSize: 14),
                 ),
               ),
             ),
@@ -28,7 +29,7 @@ class ChartBar extends StatelessWidget {
             ),
             Container(
               height: contraints.maxHeight * 0.6,
-              width: contraints.maxWidth * 0.3,
+              width: contraints.maxWidth * 0.25,
               child: Stack(
                 children: <Widget>[
                   Container(
@@ -56,7 +57,12 @@ class ChartBar extends StatelessWidget {
             Container(
               height: contraints.maxHeight * 0.15,
               child: FittedBox(
-                child: Text(label),
+                child: Text(
+                  label,
+                  style: TextStyle(
+                    fontSize: 14.5,
+                  ),
+                ),
               ),
             )
           ],

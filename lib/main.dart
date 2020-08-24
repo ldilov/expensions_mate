@@ -14,7 +14,7 @@ import 'widgets/chart.widget.dart';
 void main() {
   WidgetsFlutterBinding.ensureInitialized();
   SystemChrome.setPreferredOrientations([
-    DeviceOrientation.portraitDown,
+    DeviceOrientation.portraitUp,
     DeviceOrientation.portraitDown,
   ]);
   runApp(MyApp());
@@ -147,14 +147,14 @@ class _MyHomePageState extends State<MyHomePage> {
                         height: (MediaQuery.of(context).size.height -
                                 appBar.preferredSize.height -
                                 MediaQuery.of(context).padding.top) *
-                            0.3,
+                            0.25,
                         child: Chart(_userTransactions),
                       ),
                       Container(
                         height: (MediaQuery.of(context).size.height -
                                 appBar.preferredSize.height -
                                 MediaQuery.of(context).padding.top) *
-                            0.6,
+                            0.65,
                         child: TransactionListWidget(_recentTransactions, db),
                       ),
                     ],
